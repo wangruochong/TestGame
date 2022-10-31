@@ -47,13 +47,27 @@ var HelloWorldLayer = cc.Layer.extend({
         // add the label as a child to this layer
         this.addChild(helloLabel, 5);
 
+        var versionLabel = new cc.LabelTTF("version:1.0", "Arial", 20);
+        versionLabel.setAnchorPoint(cc.p(0, 0));
+        versionLabel.x = 15;
+        versionLabel.y = 15;
+        this.addChild(versionLabel, 5);
+
         // add "HelloWorld" splash screen"
         this.sprite = new cc.Sprite(res.HelloWorld_png);
         this.sprite.attr({
             x: size.width / 2,
             y: size.height / 2
         });
+
+        this.button = new cc.Sprite("res/btn_1.png");
+        this.button.attr({
+            x: size.width / 2,
+            y: 70
+        });
+
         this.addChild(this.sprite, 0);
+        this.addChild(this.button, 0);
 
         return true;
     }
