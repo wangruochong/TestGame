@@ -1,0 +1,3 @@
+[submodule "frameworks/cocos2d-x"]
+	path = frameworks/cocos2d-x
+	url = git@github.com:Allen-source/test_cocos2d-x.git
