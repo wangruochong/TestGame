@@ -1,43 +1,36 @@
 #!/usr/bin/python
-# build_native.py
-# Build native codes
-# 
-# Please use cocos console instead
 
-
-import sys
-import os, os.path
+import os
 import shutil
-from optparse import OptionParser
-
-def build(build_mode):
 
 
-    current_dir = os.path.dirname(os.path.realpath(__file__))
-    cocos_root = os.path.join(current_dir, "../cocos2d")
-
-    app_android_root = os.path.join(current_dir, "../")
-		
-    if build_mode is None:
-    	  build_mode = 'debug'
-    elif build_mode != 'release':
-        build_mode = 'debug'
+def copy_resouces(project_root):
+    print("Copying resources to assets...")
+    root = os.path.join(project_root, "..")
+    src_dir = os.path.join(root, "Resources")
+    des_dir = os.path.join(project_root, "app/assets")
+    if os.path.isdir(des_dir):
+        shutil.rmtree(des_dir)
     
-    command = 'cocos compile -p android -s %s -m %s' % (app_android_root, build_mode) 
-    if os.system(command) != 0:
-        raise Exception("Build dynamic library for project [ " + app_android_root + " ] fails!")
+    shutil.copytree(src_dir, des_dir)
 
-# -------------- main --------------
+def build_native(project_root):
+    print("Building native code...")
+    cocos_root = os.path.join(project_root, "../cocos2d")
+    ndk_module_path = '%s/..:%s:%s/external:%s/cocos' % (cocos_root, cocos_root, cocos_root, cocos_root)
+    cmd = "ndk-build -j2 NDK_DEBUG=1 -C %s/app/jni NDK_MODULE_PATH=%s" % (project_root, ndk_module_path)
+    # cmd = "ndk-build -B NDK_DEBUG=1 -C %s/app/jni NDK_MODULE_PATH=%s" % (project_root, ndk_module_path)
+    os.system(cmd)
+
+def build():
+    print("Building apk...")
+    cmd = "./gradlew assembleDebug"
+    os.system(cmd)
+
 if __name__ == '__main__':
-
-    parser = OptionParser()
-    parser.add_option("-n", "--ndk", dest="ndk_build_param", help='it is not used', action="append")
-    parser.add_option("-p", "--platform", dest="android_platform", 
-    help='it is not used')
-    parser.add_option("-b", "--build", dest="build_mode", 
-    help='the build mode for java project,debug[default] or release.Get more information,please refer to http://developer.android.com/tools/building/building-cmdline.html')
-    (opts, args) = parser.parse_args()
+    project_root = os.path.dirname(os.path.realpath(__file__))
+    copy_resouces(project_root)
+    build_native(project_root)
+    build()
+    print("Successful;)")
     
-    print "Please use cocos console instead.\n"
-    
-    build(opts.build_mode)
