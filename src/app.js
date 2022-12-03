@@ -54,7 +54,7 @@ var HelloWorldLayer = cc.Layer.extend({
         this.addChild(versionLabel, 5);
 
         // add "HelloWorld" splash screen"
-        this.sprite = new cc.Sprite(res.HelloWorld_png);
+        this.sprite = new cc.Sprite("res/HelloWorld.png");
         this.sprite.attr({
             x: size.width / 2,
             y: size.height / 2
@@ -80,4 +80,7 @@ var HelloWorldScene = cc.Scene.extend({
         this.addChild(layer);
     }
 });
+
+
+module.exports = HelloWorldScene
 

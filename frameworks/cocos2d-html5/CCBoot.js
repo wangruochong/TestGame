@@ -2692,11 +2692,11 @@ cc.game = /** @lends cc.game# */{
             if (i < cocos_script.length) {
                 _src = cocos_script[i].src;
                 if (_src) {
-                    _resPath = /(.*)\//.exec(_src)[0];
+                    _resPath = /(.*)\/js\//.exec(_src)[1];
                     cc.loader.resPath = _resPath;
                     _src = cc.path.join(_resPath, 'project.json');
                 }
-                cc.loader.loadTxt(_src, loaded);
+                txt = cc.loader.loadTxt(_src, loaded);
             }
             if (!txt) {
                 cc.loader.loadTxt("project.json", loaded);
