@@ -26,5 +26,17 @@
 
 
 
+# 打包apk遇到的两个问题
+
+* cmake版本不对：最后试了几个版本后，发现3.10.2.4988404报错最晚，因此确定了这个版本。
+
+* build过程中，报错“CMake Error: CMake was unable to find a build program corresponding to "Ninja". CMAKE_MAKE_PROGRAM is not set”
+
+  ```
+  看报错信息，命令行找不到ninja，使用brew install ninja命令安装后，打包成功
+  ```
+
+
+
 # 热更新
 
