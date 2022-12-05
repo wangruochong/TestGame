@@ -49,6 +49,7 @@ android {
         java.srcDir "src"
         res.srcDir "res"
         jniLibs.srcDir "libs"
+        assets.srcDirs = ["assets"]
         manifest.srcFile "AndroidManifest.xml"
     }
 

@@ -3,12 +3,6 @@
 import os
 import shutil
 
-def copy_to_assets(src_dir, project_root):
-    des_dir = os.path.join(project_root, "app/assets")
-    if os.path.isdir(des_dir):
-        shutil.rmtree(des_dir)
-    
-    shutil.copytree(src_dir, des_dir)
 
 def copy_resouces(project_root):
     print("Copying resources to assets...")
@@ -22,11 +16,11 @@ def copy_resouces(project_root):
 def copy_scripts(project_root):
     print("Copying scripts to assets...")
     src_dir = os.path.join(project_root, "../../../js")
-    des_dir = os.path.join(project_root, "app/assets")
-    # if os.path.isdir(des_dir):
-    #     shutil.rmtree(des_dir)
+    des_dir = os.path.join(project_root, "app/js")
+    if os.path.isdir(des_dir):
+        shutil.rmtree(des_dir)
 
-    shutil.copytree(src=src_dir, dst=des_dir, dirs_exist_ok=True)
+    shutil.copytree(src_dir, des_dir)
 
 def build_native(project_root):
     print("Building native code...")
@@ -43,8 +37,8 @@ def build():
 
 if __name__ == '__main__':
     project_root = os.path.dirname(os.path.realpath(__file__))
-    # copy_resouces(project_root)
-    # copy_scripts(project_root)
+    copy_resouces(project_root)
+    copy_scripts(project_root)
     build_native(project_root)
     build()
     print("Successful;)")
