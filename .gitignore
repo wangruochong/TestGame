@@ -1,3 +1,4 @@
 .DS_Store
 frameworks/runtime-src/proj.android/app/.externalNativeBuild
 frameworks/runtime-src/proj.android/.idea
+frameworks/runtime-src/proj.android/app/assets

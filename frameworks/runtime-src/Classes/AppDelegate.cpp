@@ -201,7 +201,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #endif
     ScriptEngineProtocol *engine = ScriptingCore::getInstance();
     ScriptEngineManager::getInstance()->setScriptEngine(engine);
-    ScriptingCore::getInstance()->runScript("main.js");
+    ScriptingCore::getInstance()->runScript("game.js");
 
     return true;
 }

@@ -11,16 +11,14 @@ def copy_resouces(project_root):
     if os.path.isdir(des_dir):
         shutil.rmtree(des_dir)
     
+    des_dir = os.path.join(des_dir, "res")
     shutil.copytree(src_dir, des_dir)
 
 def copy_scripts(project_root):
     print("Copying scripts to assets...")
-    src_dir = os.path.join(project_root, "../../../js")
-    des_dir = os.path.join(project_root, "app/js")
-    if os.path.isdir(des_dir):
-        shutil.rmtree(des_dir)
-
-    shutil.copytree(src_dir, des_dir)
+    src_dir = os.path.join(project_root, "../../../js/game.js")
+    des_dir = os.path.join(project_root, "app/assets")
+    shutil.copy(src_dir, des_dir)
 
 def build_native(project_root):
     print("Building native code...")

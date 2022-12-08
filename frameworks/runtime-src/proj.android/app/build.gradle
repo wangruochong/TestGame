@@ -151,15 +151,15 @@ android.applicationVariants.all { variant ->
     delete "${buildDir}/intermediates/assets/${variant.dirName}"
 
     variant.mergeAssets.doLast {
-        copy {
-           from "${buildDir}/../../../../../res"
-           into "${buildDir}/intermediates/assets/${variant.dirName}/res"
-        }
-
-        copy {
-            from "${buildDir}/../../../../../src"
-            into "${buildDir}/intermediates/assets/${variant.dirName}/src"
-        }
+//        copy {
+//           from "${buildDir}/../../../../../res"
+//           into "${buildDir}/intermediates/assets/${variant.dirName}/res"
+//        }
+//
+//        copy {
+//            from "${buildDir}/../../../../../src"
+//            into "${buildDir}/intermediates/assets/${variant.dirName}/src"
+//        }
 
         copy {
             from "${buildDir}/../../../../cocos2d-x/cocos/scripting/js-bindings/script"
@@ -167,7 +167,7 @@ android.applicationVariants.all { variant ->
         }
 
         copy {
-            from "${buildDir}/../../../../../main.js"
+//            from "${buildDir}/../../../../../main.js"
             from "${buildDir}/../../../../../project.json"
             into "${buildDir}/intermediates/assets/${variant.dirName}"
         }
