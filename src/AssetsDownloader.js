@@ -62,8 +62,16 @@ AssetsDownloader = cc.Class.extend({
                 case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
                     cc.log("Download failed: already up to date!");
                     break;
+                case jsb.EventAssetsManager.UPDATE_PROGRESSION:
+
+                case jsb.EventAssetsManager.UPDATE_FINISHED:
+                    cc.log("Down finished!");
+                    self._onSuccess()
                 case jsb.EventAssetsManager.UPDATE_FAILED:
                     cc.log("Download failed: already up to date!");
+                    break;
+                case jsb.EventAssetsManager.ERROR_UPDATING:
+                    cc.log("Download failed: error when updating!");
                     break;
             }
         })
@@ -81,7 +89,12 @@ AssetsDownloader = cc.Class.extend({
             return manifest.version;
         else
             return '';
-    }
+    },
+
+    _onSuccess: function(){
+
+    },
+
 })
     
 
