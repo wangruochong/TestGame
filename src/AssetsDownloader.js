@@ -63,9 +63,10 @@ AssetsDownloader = cc.Class.extend({
                     cc.log("Download failed: already up to date!");
                     break;
                 case jsb.EventAssetsManager.UPDATE_PROGRESSION:
-
+                    cc.log("Download update: " + event.getPercent() / 100);
+                    break;
                 case jsb.EventAssetsManager.UPDATE_FINISHED:
-                    cc.log("Down finished!");
+                    cc.log("Download finished!");
                     self._onSuccess()
                 case jsb.EventAssetsManager.UPDATE_FAILED:
                     cc.log("Download failed: already up to date!");
@@ -93,11 +94,9 @@ AssetsDownloader = cc.Class.extend({
 
     _onSuccess: function(){
 
-    },
-
+    }
 })
     
-
 
 module.exports = AssetsDownloader
 
