@@ -29,11 +29,25 @@ var HelloWorldLayer = cc.Layer.extend({
         //////////////////////////////
         // 1. super init first
         this._super();
+        
+        this._initData();
+        this._initUi();
+        this._updateState()
+        return true;
+    },
 
-        /////////////////////////////
-        // 2. add a menu item with "X" image, which is clicked to quit the program
-        //    you may modify it.
-        // ask the window size
+    _initData: function(){
+        this._state = 0;  // 0: 未更新；1: 更新中；2: 更新完成；3: 错误
+        this._progress = 0;
+        if (cc.sys.isNative){
+            AssetsDownloader = require("./AssetsDownloader");
+            storagePath = cc.path.join(jsb.fileUtils.getWritablePath(), "ota");
+            this._assetsDownloader = new AssetsDownloader("project.manifest", storagePath, this);
+            this._state = this._assetsDownloader.checkToDownload("1.1")?1:0;
+        }
+    },
+
+    _initUi: function(){
         var size = cc.winSize;
 
         /////////////////////////////
@@ -47,11 +61,17 @@ var HelloWorldLayer = cc.Layer.extend({
         // add the label as a child to this layer
         this.addChild(helloLabel, 5);
 
-        var versionLabel = new cc.LabelTTF("version:2.0", "Arial", 20);
+        var versionLabel = new cc.LabelTTF("version:1.0", "Arial", 20);
         versionLabel.setAnchorPoint(cc.p(0, 0));
         versionLabel.x = 15;
         versionLabel.y = 15;
         this.addChild(versionLabel, 5);
+
+        this._updateLabel = new cc.LabelTTF("ota progress", "Arial", 20);
+        this._updateLabel.setAnchorPoint(cc.p(0, 0));
+        this._updateLabel.x = 15;
+        this._updateLabel.y = 40;
+        this.addChild(this._updateLabel, 5);
 
         // add "HelloWorld" splash screen"
         this.sprite = new cc.Sprite("res/HelloWorld.png");
@@ -68,8 +88,40 @@ var HelloWorldLayer = cc.Layer.extend({
 
         this.addChild(this.sprite, 0);
         this.addChild(this.button, 0);
+    },
 
-        return true;
+    _updateState: function(){
+        this._updateLabel.setVisible(this._state > 0);
+        if (this._state == 0)
+            return;
+
+        stateStr = "ota ";
+        switch(this._state){
+            case 1:
+                stateStr += "progress: " + this._progress;
+                break;
+            case 2:
+                stateStr += "succeed"
+                break;
+            case 3:
+                stateStr += "ERROR!!!"
+                break;
+        }
+
+        this._updateLabel.setString(stateStr);
+    },
+
+    onSuccess: function(){
+        this._updateState();
+    },
+
+    onProgress: function(progress){
+        this._progress = progress;
+        this._updateState();
+    },
+
+    onError: function(errorCode){
+        this._updateState();
     }
 });
 

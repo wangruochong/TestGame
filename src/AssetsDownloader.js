@@ -5,9 +5,10 @@ const OTA_PATH = "ota";
 
 
 AssetsDownloader = cc.Class.extend({
-    constructor: function(manifestFile, storagePath){
+    constructor: function(manifestFileName, storagePath, downloadController){
         self = this;
         self._manifestFileName = manifestFileName;
+        self._downloadController = downloadController;
         self._storagePath = storagePath;
         self._assetsManager = null;
         self._localManifest = null;
@@ -15,6 +16,9 @@ AssetsDownloader = cc.Class.extend({
     },
 
     checkToDownload: function(remoteVersion){
+        if (!cc.sys.isNative)
+            return false;
+
         var localVersion = self._getLocalVersion();
         if(localVersion && self._compareVersion(localVersion, remoteVersion) >= 0)  // 远端版本不比本地版本更新，不用更新
             return false;
@@ -58,21 +62,26 @@ AssetsDownloader = cc.Class.extend({
             switch(event.getEventCode()){
                 case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
                     cc.log("Download failed: no local manifest!");
+                    self._onError(event);
                     break;
+                    
                 case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
                     cc.log("Download failed: already up to date!");
                     break;
                 case jsb.EventAssetsManager.UPDATE_PROGRESSION:
                     cc.log("Download update: " + event.getPercent() / 100);
+                    self._onProgress(event);
                     break;
                 case jsb.EventAssetsManager.UPDATE_FINISHED:
                     cc.log("Download finished!");
-                    self._onSuccess()
+                    self._onSuccess(event)
                 case jsb.EventAssetsManager.UPDATE_FAILED:
                     cc.log("Download failed: already up to date!");
+                    self._onError(event);
                     break;
                 case jsb.EventAssetsManager.ERROR_UPDATING:
                     cc.log("Download failed: error when updating!");
+                    self._onError(event);
                     break;
             }
         })
@@ -92,8 +101,17 @@ AssetsDownloader = cc.Class.extend({
             return '';
     },
 
-    _onSuccess: function(){
+    _onSuccess: function(event){
+        self._downloadController.onSuccess();
+    },
 
+    _onProgress: function(event){
+        self._downloadController.onProgress(event.getPercent());
+    },
+
+    _onError: function(event){
+        cc.log("Download failed: " + event.getEventCode());
+        self._downloadController.onError(event.getEventCode());
     }
 })
     
