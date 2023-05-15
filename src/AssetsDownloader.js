@@ -89,12 +89,7 @@ AssetsDownloader = cc.Class.extend({
     },
 
     _getLocalVersion: function(){
-        manifestFileName = jsb.fileUtils.getWritablePath() + "/" + OTA_PATH + "/project.manifest";
-        if (!jsb.fileUtils.isFileExists(manifestFileName)){
-            manifestFileName = self._manifestFileName;
-        }
-
-        manifest = utils.loadJson(manifestFileName);
+        manifest = utils.loadJson(self._manifestFileName);
         if(manifest)
             return manifest.version;
         else

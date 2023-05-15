@@ -196,6 +196,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #endif
     sc->start();
     sc->runScript("script/jsb_boot.js");
+    this->checkToAddOtaPath();
 #if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)
     sc->enableDebugger();
 #endif
@@ -234,4 +235,14 @@ void AppDelegate::applicationWillEnterForeground()
     SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
     SimpleAudioEngine::getInstance()->resumeAllEffects();
 #endif
+}
+
+void AppDelegate::checkToAddOtaPath()
+{
+    /*
+     * TODO: 如果ota下的manifest版本号小于包内版本号，那么需要删除ota目录下的所有内容
+     */
+    FileUtils * fileUtils = FileUtils::getInstance();
+    std::string otaPath = fileUtils->getWritablePath() + "ota";
+    fileUtils->addSearchPath(otaPath, true);
 }

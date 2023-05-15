@@ -39,12 +39,8 @@ var HelloWorldLayer = cc.Layer.extend({
     _initData: function(){
         this._state = 0;  // 0: 未更新；1: 更新中；2: 更新完成；3: 错误
         this._progress = 0;
-        if (cc.sys.isNative){
-            AssetsDownloader = require("./AssetsDownloader");
-            storagePath = cc.path.join(jsb.fileUtils.getWritablePath(), "ota");
-            this._assetsDownloader = new AssetsDownloader("project.manifest", storagePath, this);
-            this._state = this._assetsDownloader.checkToDownload("1.1")?1:0;
-        }
+        if (cc.sys.isNative)
+            this._checkToDownload();
     },
 
     _initUi: function(){
@@ -88,6 +84,15 @@ var HelloWorldLayer = cc.Layer.extend({
 
         this.addChild(this.sprite, 0);
         this.addChild(this.button, 0);
+    },
+
+    _checkToDownload: function(){
+        AssetsDownloader = require("./AssetsDownloader");
+        storagePath = cc.path.join(jsb.fileUtils.getWritablePath(), "ota");
+        otaManifestPath = cc.path.join(storagePath, "project.manifest");
+        manifestPath = jsb.fileUtils.isFileExist(otaManifestPath) ? otaManifestPath : "project.manifest";
+        this._assetsDownloader = new AssetsDownloader(manifestPath, storagePath, this);
+        this._state = this._assetsDownloader.checkToDownload("1.1")?1:0;
     },
 
     _updateState: function(){
