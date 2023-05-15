@@ -1,0 +1,38 @@
+{
+    "packageUrl" : "http://10.10.24.237:8000/res/",
+    "remoteManifestUrl" : "http://10.10.24.237:8000/res/project.manifest",
+    "remoteVersionUrl" : "http://10.10.24.237:8000/res/version.manifest",
+    "version" : "1.0.0",
+    "engineVersion" : "3.12",
+ 
+    "assets" : {
+		"res/loading.js": {
+			 "size": 4151,
+			 "md5": "0bb656b658bd3ad8961c06e417c05d29"
+		},
+		"res/HelloWorld.png": {
+			 "size": 37864,
+			 "md5": "55ea4e952bf080f300379ec26723598b"
+		},
+		"res/btn_2.png": {
+			 "size": 13612,
+			 "md5": "99c68b5a73aad394634e8a1599c925b7"
+		},
+		"res/btn_3.png": {
+			 "size": 10354,
+			 "md5": "23d76c097dc09505edbfd05d61df8589"
+		},
+		"res/btn_1.png": {
+			 "size": 9598,
+			 "md5": "48cad011acb17fd5fef83956191f344d"
+		},
+		"js/game.js": {
+			 "size": 14863,
+			 "md5": "c8860b2ce8d571bf007ca432c7377849"
+		}
+    },
+
+    "searchPaths" : [
+    ]
+}
+    
