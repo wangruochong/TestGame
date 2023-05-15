@@ -90,7 +90,7 @@ var HelloWorldLayer = cc.Layer.extend({
         AssetsDownloader = require("./AssetsDownloader");
         storagePath = cc.path.join(jsb.fileUtils.getWritablePath(), "ota");
         otaManifestPath = cc.path.join(storagePath, "project.manifest");
-        manifestPath = jsb.fileUtils.isFileExist(otaManifestPath) ? otaManifestPath : "project.manifest";
+        manifestPath = jsb.fileUtils.isFileExist(otaManifestPath) ? otaManifestPath : "manifests/project.manifest";
         this._assetsDownloader = new AssetsDownloader(manifestPath, storagePath, this);
         this._state = this._assetsDownloader.checkToDownload("1.1")?1:0;
     },
