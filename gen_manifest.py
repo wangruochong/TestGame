@@ -2,18 +2,37 @@
 
 # 此文档主要用于生成project.manifest文件，其中核心在于获取res和src目录下的所有文件的size和md5
 import os,hashlib
-roots = ["res", "src"]
+import shutil
+roots = ["res", "js"]
 
-def genManifest():
+def genManifest(ignoreAssets):
     prefix = '''{
-    "packageUrl" : "http://192.168.0.105:8080/res/",
-    "remoteManifestUrl" : "http://192.168.0.105:8080/res/project.manifest",
-    "remoteVersionUrl" : "http://192.168.0.105:8080/res/version.manifest",
+    "packageUrl" : "http://10.10.24.237:8000/res/",
+    "remoteManifestUrl" : "http://10.10.24.237:8000/res/project.manifest",
+    "remoteVersionUrl" : "http://10.10.24.237:8000/res/version.manifest",
     "version" : "1.0.0",
     "engineVersion" : "3.12",
+'''
     
+    if ignoreAssets:
+        assets = ""
+        manifestName = "version"
+    else:
+        assets = ''' 
     "assets" : {
 '''
+        manifestName = "project"
+        metadatas = getFileMetadatas()
+        for i in range(0, len(metadatas)):
+            metaData = metadatas[i]
+            assets += '\t\t\"' + metaData[0] + '\": {\n'
+            assets += '\t\t\t '+ '"size": %d,\n' %metaData[1][0]
+            assets += '\t\t\t '+ '"md5": "%s"\n' %metaData[1][1]
+            dot = ',' if i < len(metadatas) - 1 else ''
+            assets += '\t\t}%s\n' %dot
+
+        assets = assets[0:-1]
+
     suffix = '''
     },
 
@@ -21,23 +40,12 @@ def genManifest():
     ]
 }
     '''
-    metadatas = getFileMetadatas()
-    assets = ""
-    for i in range(0, len(metadatas)):
-        metaData = metadatas[i]
-        assets += '\t\t\"' + metaData[0] + '\": {\n'
-        assets += '\t\t\t '+ '"size": %d,\n' %metaData[1][0]
-        assets += '\t\t\t '+ '"md5": "%s"\n' %metaData[1][1]
-        dot = ',' if i < len(metadatas) - 1 else ''
-        assets += '\t\t}%s\n' %dot
-
-    assets = assets[0:-1]
     manifestText = prefix + assets + suffix
 
     try:
-        manifestFile = open("project_bak.manifest", 'w')
+        manifestFile = open("manifests/{0}.manifest".format(manifestName), 'w')
         manifestFile.write(manifestText)
-    except IOException:
+    except IOError:
         print "IO Error!"
     else:
         print "Generate manifest successfully!"
@@ -69,5 +77,29 @@ def getFileMD5(filePath):
 
     return str(hash).lower()
 
+def uploadOta():
+    uploadManifests()
+    uploadPackageRes()
+
+def uploadManifests():
+    copyDir("manifests", "manifests")
+
+def uploadPackageRes():
+    copyDir("res", "package_res")
+    copyDir("js", "package_res")
+
+def copyDir(srcDir, dstDir):
+    src = os.path.abspath(srcDir)
+    dst = os.path.abspath("../../ota_server/{0}".format(dstDir))
+    shutil.rmtree(dst)
+    shutil.copytree(src, dst)
+
 if __name__ == "__main__":
-    genManifest()
+    # 生成version和project manifest文件
+    genManifest(False)
+    genManifest(True)
+
+    # 上传资源以及生成的manifest文件
+    uploadManifests()
+    uploadPackageRes()
+
