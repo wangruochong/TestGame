@@ -77,17 +77,6 @@ def getFileMD5(filePath):
 
     return str(hash).lower()
 
-def uploadOta():
-    uploadManifests()
-    uploadPackageRes()
-
-def uploadManifests():
-    copyDir("manifests", "manifests")
-
-def uploadPackageRes():
-    copyDir("res", "package_res")
-    copyDir("js", "package_res")
-
 def copyDir(srcDir, dstDir):
     src = os.path.abspath(srcDir)
     dst = os.path.abspath("../../ota_server/{0}".format(dstDir))
@@ -98,8 +87,4 @@ if __name__ == "__main__":
     # 生成version和project manifest文件
     genManifest(False)
     genManifest(True)
-
-    # 上传资源以及生成的manifest文件
-    uploadManifests()
-    uploadPackageRes()
 
