@@ -3,7 +3,6 @@
 import os
 import shutil
 
-
 def copy_resouces(project_root):
     print("Copying resources to assets...")
     src_dir = os.path.join(project_root, "../../../res")
@@ -27,11 +26,15 @@ def build_native(project_root):
     ndk_module_path = '%s/..:%s:%s/external:%s/cocos' % (cocos_root, cocos_root, cocos_root, cocos_root)
     cmd = "ndk-build -j2 NDK_DEBUG=1 -C %s/app/jni NDK_MODULE_PATH=%s --debug" % (project_root, ndk_module_path)
     # cmd = "ndk-build -B NDK_DEBUG=1 -C %s/app/jni NDK_MODULE_PATH=%s" % (project_root, ndk_module_path)
-    os.system(cmd)
+    runCmd(cmd)
 
 def build():
     print("Building apk...")
     cmd = "./gradlew --info assembleDebug"
+    runCmd(cmd)
+
+def runCmd(cmd):
+    print("sh:%s" % cmd)
     os.system(cmd)
 
 if __name__ == '__main__':
