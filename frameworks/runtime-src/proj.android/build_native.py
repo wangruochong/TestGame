@@ -13,6 +13,14 @@ def copy_resouces(project_root):
     des_dir = os.path.join(des_dir, "res")
     shutil.copytree(src_dir, des_dir)
 
+def build_scripts():
+    print("Building js scripts...")
+    cur_dir = os.getcwd()
+    root = os.path.join(project_root, "../../..")
+    os.chdir(root)
+    runCmd("browserify main.js > js/game.js")
+    os.chdir(cur_dir)
+
 def copy_scripts(project_root):
     print("Copying scripts to assets...")
     src_file = os.path.join(project_root, "../../../js/game.js")
@@ -45,6 +53,7 @@ if __name__ == '__main__':
     project_root = os.path.dirname(os.path.realpath(__file__))
     print("Begin to build apk with project_root: %s" % project_root)
     copy_resouces(project_root)
+    build_scripts()
     copy_scripts(project_root)
     build_native(project_root)
     build()
