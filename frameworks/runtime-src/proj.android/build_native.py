@@ -15,9 +15,13 @@ def copy_resouces(project_root):
 
 def copy_scripts(project_root):
     print("Copying scripts to assets...")
-    src_dir = os.path.join(project_root, "../../../js/game.js")
-    des_dir = os.path.join(project_root, "app/assets")
-    shutil.copy(src_dir, des_dir)
+    src_file = os.path.join(project_root, "../../../js/game.js")
+    des_dir = os.path.join(project_root, "app/assets/js")
+    if not os.path.exists(des_dir):
+        os.makedirs(des_dir)
+    
+    des_file = os.path.join(des_dir, "game.js")
+    shutil.copyfile(src_file, des_file)
 
 def build_native(project_root):
     print("Building native code...")
