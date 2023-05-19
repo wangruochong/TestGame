@@ -5,7 +5,7 @@ const OTA_PATH = "ota";
 
 
 AssetsDownloader = cc.Class.extend({
-    constructor: function(manifestFileName, storagePath, downloadController){
+    ctor: function(manifestFileName, storagePath, downloadController){
         this._manifestFileName = manifestFileName;
         this._downloadController = downloadController;
         this._storagePath = storagePath;
