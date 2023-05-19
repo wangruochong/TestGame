@@ -31,6 +31,16 @@ def copy_scripts(project_root):
     des_file = os.path.join(des_dir, "game.js")
     shutil.copyfile(src_file, des_file)
 
+def copy_manifests(project_root):
+    print("Copying manifests to assets...")
+    src_dir = os.path.join(project_root, "../../../manifests")
+    des_dir = os.path.join(project_root, "app/assets/manifests")
+    if not os.path.exists(des_dir):
+        os.makedirs(des_dir)
+
+    shutil.copyfile(os.path.join(src_dir, "project.manifest"), os.path.join(des_dir, "project.manifest"))
+    shutil.copyfile(os.path.join(src_dir, "version.manifest"), os.path.join(des_dir, "version.manifest"))
+
 def build_native(project_root):
     print("Building native code...")
     cocos_root = os.path.join(project_root, "../../cocos2d-x")
@@ -53,6 +63,7 @@ if __name__ == '__main__':
     project_root = os.path.dirname(os.path.realpath(__file__))
     print("Begin to build apk with project_root: %s" % project_root)
     copy_resouces(project_root)
+    copy_manifests(project_root)
     build_scripts()
     copy_scripts(project_root)
     build_native(project_root)
