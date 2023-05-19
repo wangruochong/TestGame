@@ -76,7 +76,7 @@ var HelloWorldLayer = cc.Layer.extend({
             y: size.height / 2
         });
 
-        this.button = new cc.Sprite("res/btn_2.png");
+        this.button = new cc.Sprite("res/btn_1.png");
         this.button.attr({
             x: size.width / 2,
             y: 70
@@ -92,7 +92,7 @@ var HelloWorldLayer = cc.Layer.extend({
         otaManifestPath = cc.path.join(storagePath, "project.manifest");
         manifestPath = jsb.fileUtils.isFileExist(otaManifestPath) ? otaManifestPath : "manifests/project.manifest";
         this._assetsDownloader = new AssetsDownloader(manifestPath, storagePath, this);
-        this._state = this._assetsDownloader.checkToDownload("1.1")?1:0;
+        this._state = this._assetsDownloader.checkToDownload("1.0.1")?1:0;
     },
 
     _updateState: function(){
