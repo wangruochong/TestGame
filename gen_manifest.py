@@ -10,7 +10,7 @@ def genManifest(ignoreAssets):
     "packageUrl" : "http://10.10.24.237:8000/res/",
     "remoteManifestUrl" : "http://10.10.24.237:8000/res/project.manifest",
     "remoteVersionUrl" : "http://10.10.24.237:8000/res/version.manifest",
-    "version" : "1.0.0",
+    "version" : "1.0.1",
     "engineVersion" : "3.12",
 '''
     
@@ -33,9 +33,11 @@ def genManifest(ignoreAssets):
 
         assets = assets[0:-1]
 
-    suffix = '''
-    },
+    suffix = ""
+    if not ignoreAssets:
+        suffix += "},"
 
+    suffix += '''
     "searchPaths" : [
     ]
 }
@@ -82,6 +84,7 @@ def copyDir(srcDir, dstDir):
     dst = os.path.abspath("../../ota_server/{0}".format(dstDir))
     shutil.rmtree(dst)
     shutil.copytree(src, dst)
+
 
 if __name__ == "__main__":
     # 生成version和project manifest文件
