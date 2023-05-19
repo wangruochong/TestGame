@@ -2,7 +2,7 @@
     "packageUrl" : "http://10.10.24.237:8000/res/",
     "remoteManifestUrl" : "http://10.10.24.237:8000/res/project.manifest",
     "remoteVersionUrl" : "http://10.10.24.237:8000/res/version.manifest",
-    "version" : "1.0.0",
+    "version" : "1.0.1",
     "engineVersion" : "3.12",
  
     "assets" : {
@@ -27,11 +27,9 @@
 			 "md5": "48cad011acb17fd5fef83956191f344d"
 		},
 		"js/game.js": {
-			 "size": 14863,
-			 "md5": "c8860b2ce8d571bf007ca432c7377849"
-		}
-    },
-
+			 "size": 14990,
+			 "md5": "c2f2b88e3c8ba11dc444f2a4b6f222c6"
+		}},
     "searchPaths" : [
     ]
 }
