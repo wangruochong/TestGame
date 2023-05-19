@@ -1,8 +1,8 @@
 {
-    "packageUrl" : "http://10.10.24.237:8000/res/",
-    "remoteManifestUrl" : "http://10.10.24.237:8000/res/project.manifest",
-    "remoteVersionUrl" : "http://10.10.24.237:8000/res/version.manifest",
-    "version" : "1.0.1",
+    "packageUrl" : "http://10.10.24.237:8000/package_res/",
+    "remoteManifestUrl" : "http://10.10.24.237:8000/manifests/project.manifest",
+    "remoteVersionUrl" : "http://10.10.24.237:8000/manifests/version.manifest",
+    "version" : "1.0.0",
     "engineVersion" : "3.12",
 
     "searchPaths" : [
