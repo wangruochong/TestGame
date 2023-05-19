@@ -83,7 +83,7 @@ AssetsDownloader = cc.Class.extend({
                     this._onError(event);
                     break;
             }
-        })
+        }.bind(this))
         cc.eventManager.addListener(this._assetsListener, 1);
     },
 
