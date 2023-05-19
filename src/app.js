@@ -58,15 +58,15 @@ var HelloWorldLayer = cc.Layer.extend({
         this.addChild(helloLabel, 5);
 
         var versionLabel = new cc.LabelTTF("version:1.0", "Arial", 20);
-        versionLabel.setAnchorPoint(cc.p(0, 0));
+        versionLabel.setAnchorPoint(cc.p(0, 1));
         versionLabel.x = 15;
-        versionLabel.y = 15;
+        versionLabel.y = size.height / 2 - 5;
         this.addChild(versionLabel, 5);
 
         this._updateLabel = new cc.LabelTTF("ota progress", "Arial", 20);
         this._updateLabel.setAnchorPoint(cc.p(0, 0));
         this._updateLabel.x = 15;
-        this._updateLabel.y = 40;
+        this._updateLabel.y = size.height / 2 + 5;
         this.addChild(this._updateLabel, 5);
 
         // add "HelloWorld" splash screen"
