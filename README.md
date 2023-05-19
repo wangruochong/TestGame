@@ -28,9 +28,23 @@
 
 # 打包步骤
 
-...
+1. 执行gen_ota.py，生成ota和manifest
 
+2. 执行build_native.py，在app/build目录下生成apk文件，其中build_native.py的操作包含：
 
+   * 拷贝根目录下的res资源
+
+   * 拷贝根目录下的manifests文件
+
+   * 编译客户端js代码为game.js
+
+   * 拷贝game.js到assets/js目录
+
+   * 使用ndk-build命令，编译c++
+
+   * 使用./gradlew构建apk文件
+
+     
 
 # 打包apk遇到的两个问题
 
@@ -42,7 +56,15 @@
   看报错信息，命令行找不到ninja，使用brew install ninja命令安装后，打包成功
   ```
 
+* 运行build_native.py文件，遇到下面报错：
 
+  ```
+  Execution failed for task ':Test Game:transformNativeLibsWithMergeJniLibsForDebug'. > More than one file was found with OS independent path 'lib/armeabi-v7a/libcocos2djs.so'
+  ```
+
+  看上去是libcocos2djs.so重复了，此时发现app下的build.gradle下的externalNativeBuild配置了ndk和cmake的信息，解决方案：删除build.gradle中的externalNativeBuild配置，重新打包就好了。
+
+  
 
 # 热更新
 
