@@ -117,6 +117,7 @@ var HelloWorldLayer = cc.Layer.extend({
     },
 
     onSuccess: function(){
+        this._state = 2;
         this._updateState();
     },
 
@@ -126,6 +127,7 @@ var HelloWorldLayer = cc.Layer.extend({
     },
 
     onError: function(errorCode){
+        this._state = 3;
         this._updateState();
     }
 });
