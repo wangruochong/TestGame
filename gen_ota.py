@@ -22,7 +22,7 @@ def copyDir(srcDir, dstDir):
 
 def uploadPackageRes():
     for dir in ["js", "res", "manifests"]:
-        copyDir(dir, "package_res")
+        copyDir(dir, "package_res/%s" % dir)
 
 def uploadManifests():
     copyDir("manifests", "manifests")
