@@ -75,7 +75,7 @@ AssetsDownloader = cc.Class.extend({
                     cc.log("Download finished!");
                     this._onSuccess(event)
                 case jsb.EventAssetsManager.UPDATE_FAILED:
-                    cc.log("Download failed: already up to date!");
+                    cc.log("Download failed: update failed!");
                     this._onError(event);
                     break;
                 case jsb.EventAssetsManager.ERROR_UPDATING:
@@ -104,7 +104,7 @@ AssetsDownloader = cc.Class.extend({
     },
 
     _onError: function(event){
-        cc.log("Download failed: " + event.getEventCode());
+        cc.log("Download failed: " + event.getMessage());
         this._downloadController.onError(event.getEventCode());
     }
 })
