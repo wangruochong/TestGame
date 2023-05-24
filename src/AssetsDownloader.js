@@ -19,6 +19,7 @@ AssetsDownloader = cc.Class.extend({
             return false;
 
         var localVersion = this._getLocalVersion();
+        cc.log("[AssetsDownloader]checkToDownload " + localVersion + " " + remoteVersion);
         if(localVersion && this._compareVersion(localVersion, remoteVersion) >= 0)  // 远端版本不比本地版本更新，不用更新
             return false;
 
@@ -44,13 +45,14 @@ AssetsDownloader = cc.Class.extend({
     },
 
     _download: function(){
-         this._assetsManager = new jsb.AssetsManager(this._manifestFileName, this._storagePath, 0);
-         this._assetsManager.retain()
-         this._localManifest = this._assetsManager.getLocalManifest()
-         if(!this._localManifest.isLoaded()){
+        cc.log("[AssetsDownloader]_download");
+        this._assetsManager = new jsb.AssetsManager(this._manifestFileName, this._storagePath, 0);
+        this._assetsManager.retain()
+        this._localManifest = this._assetsManager.getLocalManifest()
+        if(!this._localManifest.isLoaded()){
             cc.log("Download failed: local manifest isn't loaded!");
             return;
-         }
+        }
 
         this._addAssetsManagerListener();
         this._assetsManager.update();
@@ -74,6 +76,7 @@ AssetsDownloader = cc.Class.extend({
                 case jsb.EventAssetsManager.UPDATE_FINISHED:
                     cc.log("Download finished!");
                     this._onSuccess(event)
+                    break;
                 case jsb.EventAssetsManager.UPDATE_FAILED:
                     cc.log("Download failed: update failed!");
                     this._onError(event);
