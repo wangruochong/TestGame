@@ -46,7 +46,7 @@ def build_native(project_root):
     cocos_root = os.path.join(project_root, "../../cocos2d-x")
     print("Cocos root exists:", os.path.exists(cocos_root))
     ndk_module_path = '%s/..:%s:%s/external:%s/cocos' % (cocos_root, cocos_root, cocos_root, cocos_root)
-    cmd = "ndk-build -j2 NDK_DEBUG=1 -C %s/app/jni NDK_MODULE_PATH=%s --debug" % (project_root, ndk_module_path)
+    cmd = "ndk-build -j2 NDK_DEBUG=1 -C %s/app/jni NDK_MODULE_PATH=%s" % (project_root, ndk_module_path)
     # cmd = "ndk-build -B NDK_DEBUG=1 -C %s/app/jni NDK_MODULE_PATH=%s" % (project_root, ndk_module_path)
     runCmd(cmd)
 
