@@ -100,7 +100,7 @@ AppDelegate::~AppDelegate()
 void AppDelegate::initGLContextAttrs()
 {
     GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8, 0};
-
+    
     GLView::setGLContextAttrs(glContextAttrs);
 }
 
@@ -244,5 +244,6 @@ void AppDelegate::checkToAddOtaPath()
      */
     FileUtils * fileUtils = FileUtils::getInstance();
     std::string otaPath = fileUtils->getWritablePath() + "ota";
+    log("checkToAddOtaPath: %s", otaPath.c_str());
     fileUtils->addSearchPath(otaPath, true);
 }
