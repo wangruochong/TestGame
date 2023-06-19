@@ -5,3 +5,4 @@ frameworks/runtime-src/proj.android/app/assets
 js/game.js
 frameworks/runtime-src/proj.android/app/libs
 frameworks/runtime-src/proj.android/app/obj
+*.manifest
