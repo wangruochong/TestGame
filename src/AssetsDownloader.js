@@ -56,6 +56,7 @@ AssetsDownloader = cc.Class.extend({
 
         this._addAssetsManagerListener();
         this._assetsManager.update();
+        this._assetsManager.setToDestination(true);
     },
 
     _addAssetsManagerListener: function(){
