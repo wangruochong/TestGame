@@ -31,6 +31,7 @@ def getRemoteDir(dir):
     return os.path.abspath("../../ota_server/{0}".format(dir))
 
 if __name__ == "__main__":
-   os.system("python gen_manifest.py")
-   uploadPackageRes()
-   uploadManifests()
+    os.system("browserify main.js > js/game.js")
+    os.system("python gen_manifest.py")
+    uploadPackageRes()
+    uploadManifests()
