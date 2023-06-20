@@ -76,7 +76,7 @@ var HelloWorldLayer = cc.Layer.extend({
             y: size.height / 2
         });
 
-        this.button = new cc.Sprite("res/btn_1.png");
+        this.button = new cc.Sprite("res/btn_2.png");
         this.button.attr({
             x: size.width / 2,
             y: 70
